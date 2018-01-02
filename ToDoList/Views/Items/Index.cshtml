@@ -10,8 +10,17 @@
     <ul>
         @foreach(var listItem in Model)
         {
-            <li>@Html.DisplayFor(modelItem => listItem.Description)</li>
+            <li>
+			    @Html.DisplayFor(modelItem => listItem.Description) |
+				<!-- why is the parameter "modelItem => listItem.Description" as opposed to "listItem.Description"? -->
+                    <!-- *To Recall:* "DisplayNameFor" renders for the name of the field targeted on our view's model. In the code it is "Description". DisplayFor renders the values for a particular field. -->
+				@Html.ActionLink("Details", "Details", new { id = listItem.ItemId })
+				<!-- must 3rd arg be an obj? can it be an int? -->
+				    <!-- *To Recall:* property names of the object we pass in must match parameter names used by the target method -->
+			</li>
+            
         }
     </ul>
+	<p>@Html.ActionLink("Add new item", "Create")</p>
 </body>
 </html>
