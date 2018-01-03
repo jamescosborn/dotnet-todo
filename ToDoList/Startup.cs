@@ -31,7 +31,7 @@ namespace ToDoList
         {
             services.AddMvc();
 			services.AddEntityFrameworkMySql()
-		    .AddDbContext<ToDoListContext>(options =>
+		            .AddDbContext<ToDoListContext>(options =>
 									 options
 										  .UseMySql(Configuration["ConnectionStrings:DefaultConnection"]));
         }
@@ -40,18 +40,19 @@ namespace ToDoList
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             app.UseStaticFiles();
+			app.UseDeveloperExceptionPage(); //!!!
 			app.UseMvc(routes =>
 			{
 				routes.MapRoute( name: "default",
 		                         template: "{controller=Home}/{action=Index}/{id?}");
 			});
 
-            loggerFactory.AddConsole();
+			loggerFactory.AddConsole();
 
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            //if (env.IsDevelopment())
+            //{
+                //app.UseDeveloperExceptionPage();
+            //}
 
             app.Run(async (context) =>
             {
